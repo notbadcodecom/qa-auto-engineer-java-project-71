@@ -132,4 +132,93 @@ class DiffEntryTest {
                 .hasFieldOrPropertyWithValue("removedValue", removedLongValue)
                 .hasFieldOrPropertyWithValue("addedValue", addedLongValue);
     }
+
+
+    // DeepSeek generated tests (for coverage)
+    @Test
+    void testEqualsSameObject() {
+        DiffEntry entry = new DiffEntry("key", DiffStatus.UNCHANGED, "value", "value");
+
+        assertThat(entry.equals(entry)).isTrue();
+    }
+
+    @Test
+    void testEqualsEqualObjects() {
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+
+        assertThat(entry1.equals(entry2)).isTrue();
+        assertThat(entry2.equals(entry1)).isTrue();
+    }
+
+    @Test
+    void testEqualsDifferentKey() {
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        DiffEntry entry2 = new DiffEntry("timeout2", DiffStatus.CHANGED, 50, 100);
+
+        assertThat(entry1.equals(entry2)).isFalse();
+    }
+
+    @Test
+    void testEqualsDifferentStatus() {
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.ADDED, 50, 100);
+
+        assertThat(entry1.equals(entry2)).isFalse();
+    }
+
+    @Test
+    void testEqualsDifferentRemovedValue() {
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 60, 100);
+
+        assertThat(entry1.equals(entry2)).isFalse();
+    }
+
+    @Test
+    void testEqualsDifferentAddedValue() {
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 200);
+
+        assertThat(entry1.equals(entry2)).isFalse();
+    }
+
+    @Test
+    void testEqualsWithNullValues() {
+        DiffEntry entry1 = new DiffEntry("proxy", DiffStatus.ADDED, null, "value");
+        DiffEntry entry2 = new DiffEntry("proxy", DiffStatus.ADDED, null, "value");
+
+        assertThat(entry1.equals(entry2)).isTrue();
+    }
+
+    @Test
+    void testEqualsWithNullDifferent() {
+        DiffEntry entry1 = new DiffEntry("proxy", DiffStatus.ADDED, null, "value");
+        DiffEntry entry2 = new DiffEntry("proxy", DiffStatus.ADDED, "old", "value");
+
+        assertThat(entry1.equals(entry2)).isFalse();
+    }
+
+    @Test
+    void testEqualsWithNullObject() {
+        DiffEntry entry = new DiffEntry("key", DiffStatus.UNCHANGED, "value", "value");
+
+        assertThat(entry.equals(null)).isFalse();
+    }
+
+    @Test
+    void testEqualsDifferentClass() {
+        DiffEntry entry = new DiffEntry("key", DiffStatus.UNCHANGED, "value", "value");
+        String notDiffEntry = "not a diff entry";
+
+        assertThat(entry.equals(notDiffEntry)).isFalse();
+    }
+
+    @Test
+    void testHashCodeEqualForEqualObjects() {
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+
+        assertThat(entry1.hashCode()).isEqualTo(entry2.hashCode());
+    }
 }
