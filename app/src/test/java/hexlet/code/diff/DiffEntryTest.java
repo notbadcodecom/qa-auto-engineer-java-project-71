@@ -144,8 +144,11 @@ class DiffEntryTest {
 
     @Test
     void testEqualsEqualObjects() {
-        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
-        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        final int removedIntegerValue = 50;
+        final int addedIntegerValue = 100;
+
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue);
 
         assertThat(entry1.equals(entry2)).isTrue();
         assertThat(entry2.equals(entry1)).isTrue();
@@ -153,32 +156,46 @@ class DiffEntryTest {
 
     @Test
     void testEqualsDifferentKey() {
-        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
-        DiffEntry entry2 = new DiffEntry("timeout2", DiffStatus.CHANGED, 50, 100);
+        final int removedIntegerValue = 50;
+        final int addedIntegerValue = 100;
+
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue);
+        DiffEntry entry2 = new DiffEntry("timeout2", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue);
 
         assertThat(entry1.equals(entry2)).isFalse();
     }
 
     @Test
     void testEqualsDifferentStatus() {
-        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
-        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.ADDED, 50, 100);
+        final int removedIntegerValue = 50;
+        final int addedIntegerValue = 100;
+
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.ADDED, removedIntegerValue, addedIntegerValue);
 
         assertThat(entry1.equals(entry2)).isFalse();
     }
 
     @Test
     void testEqualsDifferentRemovedValue() {
-        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
-        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 60, 100);
+        final int removedIntegerValue1 = 50;
+        final int removedIntegerValue2 = 60;
+        final int addedIntegerValue = 100;
+
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue1, addedIntegerValue);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue2, addedIntegerValue);
 
         assertThat(entry1.equals(entry2)).isFalse();
     }
 
     @Test
     void testEqualsDifferentAddedValue() {
-        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
-        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 200);
+        final int removedIntegerValue = 50;
+        final int addedIntegerValue1 = 100;
+        final int addedIntegerValue2 = 200;
+
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue1);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue2);
 
         assertThat(entry1.equals(entry2)).isFalse();
     }
@@ -216,8 +233,11 @@ class DiffEntryTest {
 
     @Test
     void testHashCodeEqualForEqualObjects() {
-        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
-        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, 50, 100);
+        final int removedIntegerValue = 50;
+        final int addedIntegerValue = 100;
+
+        DiffEntry entry1 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue);
+        DiffEntry entry2 = new DiffEntry("timeout", DiffStatus.CHANGED, removedIntegerValue, addedIntegerValue);
 
         assertThat(entry1.hashCode()).isEqualTo(entry2.hashCode());
     }
